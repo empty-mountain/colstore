@@ -10,13 +10,14 @@
 import base64
 class base64_code(object):
     """base64加密解密程序"""
-    def __init__(self,real_code):
-        self.code = real_code
+    def __init__(self):
+        # self.code = real_code
+        pass
         
-    def encrypt(self):
+    def encrypt(self,code_unencrypt):
         #base64加密程序
         # 编译为byte类型
-        code = self.code.encode('utf8')
+        code = code_unencrypt.encode('utf8')
         #加密
         encrypt_code = base64.b64encode(code)
         return encrypt_code
@@ -31,6 +32,7 @@ if __name__ == "__main__":
     code = input('input your code here')
 
     coding = base64_code(code)
+    
     coded = coding.encrypt()
     print(coded)
     mid = coding.declassified(coded)

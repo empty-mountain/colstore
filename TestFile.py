@@ -1,17 +1,11 @@
 """test something here。
 """
 
+from CodeChanger import base64_code
 
-class test(object):
-    def __init__(self):
-        pass
+base64_codes = base64_code()
 
-    @staticmethod
-    def knows(xs):
-        print('jijijijiji%s'%xs)
-
-
-test.knows(3)
-
-
+aaa = input('ljljlkjl;jfcj')
+iii = base64_codes.encrypt(aaa)
+print(iii)
 

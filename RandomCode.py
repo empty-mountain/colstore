@@ -51,8 +51,6 @@ class InputManage():
         
         return pass_code
 
-
-# kdkddkkdkdk
 if __name__ == "__main__":
     
     print('1、请输入密码\n')
@@ -60,7 +58,7 @@ if __name__ == "__main__":
     # print('如果需要')
     
     #实例化循环执行
-    while 1:
+    while True:
         #获得输入
         middle_link = input('请输入指令')
         middle_object = InputManage(str(middle_link))
