@@ -1,11 +1,13 @@
 """test something here。
 """
+import time
+import string
+import random
 
-from CodeChanger import base64_code
+dicts = {
+    0: list(string.ascii_letters),
+    1: list(string.printable[:-6]),
+}
 
-base64_codes = base64_code()
 
-aaa = input('ljljlkjl;jfcj')
-iii = base64_codes.encrypt(aaa)
-print(iii)
-
+print(dicts[1])

@@ -16,7 +16,7 @@ class Databases_deal(object):
     """定义数据库，执行存储与取出"""
     def __init__(self, *args, **kwargs):
         # super().__init__(*args, **kwargs)
-        self.args = args
+        # self.args = args
         self.base64_bases = base64_code()
 
     def use_mysql(self,*args):
