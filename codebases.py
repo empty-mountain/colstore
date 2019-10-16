@@ -10,7 +10,7 @@
 """
 
 import pymysql
-from CodeChanger import base64_code
+from codemanageII.CodeChanger import base64_code
 
 class Databases_deal(object):
     """定义数据库，执行存储与取出"""

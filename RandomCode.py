@@ -9,7 +9,7 @@
 import random
 import string
 import pyperclip
-from codebases import Databases_deal
+from codemanageII.codebases import Databases_deal
 
 
 class InputManage():
@@ -23,7 +23,7 @@ class InputManage():
     def DealInput(self):
         #使用split分割输入
         command_list = self.middle_linked.split('.',5)
-        print(command_list)
+        print('\n')
         #调用方法处理
         #验证密码正确与否，正确pass_permit返回1
         pass_permit = self.is_user(command_list[0])
@@ -71,8 +71,8 @@ class InputManage():
             #根据是否加入symbol，选择密码字典，再随机选择
             birth_word += random.choice(code_chdict[symbol_flag])
         if use_remark == '1':
-            usename = input('输入用户名')
-            web_remark = input('输入备注')
+            usename = input('输入用户名 : ')
+            web_remark = input('输入备注 : ')
             # self.code_copy(birth_word, usename)
         else:
             usename = web_remark = 'none'
@@ -90,9 +90,12 @@ class InputManage():
         usetuple = self.base_deal.code_bringout(search_peitain)
         if usetuple:
             # print('密码归属 ：%s'%usetuple[0].decode())
-            print('%s : %s'%(usetuple[2].decode(),usetuple[1].decode()))
-            print('username : %s')
-            self.code_copy(usetuple[1].decode(), usetuple[2].decode())
+            print('\n%s : %s'%(usetuple[2].decode(),usetuple[1].decode()))
+            # print('username : %s')
+            if usetuple[2].decode() == 'none':
+                self.code_copy(usetuple[1].decode())
+            else:
+                self.code_copy(usetuple[1].decode(), usetuple[2].decode())
             # print('\n已复制密码')
             # pyperclip.copy(usetuple[1].decode())
         else:
@@ -107,9 +110,9 @@ class InputManage():
             if continued == 'c':
                 pyperclip.copy(passcode)
                 print('已复制密码，结束')
-            else:
-                pyperclip.copy(passcode)
-                print('已结束复制')
+        else:
+            pyperclip.copy(passcode)
+            print('已复制密码，结束复制')
 
 if __name__ == "__main__":
     
