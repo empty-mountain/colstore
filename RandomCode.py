@@ -22,21 +22,25 @@ class InputManage():
 
     def DealInput(self):
         #使用split分割输入
-        command_list = self.middle_linked.split('.',3)
+        command_list = self.middle_linked.split('.',5)
         print(command_list)
         #调用方法处理
         #验证密码正确与否，正确pass_permit返回1
         pass_permit = self.is_user(command_list[0])
         # try:
         if pass_permit == 1 and command_list[1] == '1':
+            # 假如密码正确并且要添加
             try:
-                pass_word = self.code_birth(command_list[2],command_list[3])
+                # 2 是否加入符号 ；3 密码位数 ; 4 是否加入用户名和备注
+                pass_word = self.code_birth(command_list[2],command_list[3], command_list[4])
                 return pass_word
+                
             except IndexError: 
                 pass_word = self.code_birth()
     
 
         elif pass_permit == 1 and command_list[1] == '0':
+            # 密码正确，查询
             self.code_search()
         
         else: 
@@ -53,7 +57,7 @@ class InputManage():
             return 1
         else: return 0
 
-    def code_birth(self,symbol_flag='0',code_nums=12):
+    def code_birth(self,symbol_flag='0',code_nums=12, use_remark='0'):
         #密码生成
         #0表示只有数字和字母，1表示包括符号
         code_pertain = input('添加 ：输入密码归属或网址 :')
@@ -66,9 +70,16 @@ class InputManage():
         for i in range(1,int(code_nums)+1):
             #根据是否加入symbol，选择密码字典，再随机选择
             birth_word += random.choice(code_chdict[symbol_flag])
-        
-        self.base_deal.code_save(birth_word,code_pertain)
+        if use_remark == '1':
+            usename = input('输入用户名')
+            web_remark = input('输入备注')
+            # self.code_copy(birth_word, usename)
+        else:
+            usename = web_remark = 'none'
+        self.base_deal.code_save(birth_word,code_pertain,usename,web_remark)
         print('%s : %s'%(code_pertain,birth_word))
+        print('已复制密码')
+        pyperclip.copy(birth_word)
         return birth_word
 
 
@@ -78,9 +89,27 @@ class InputManage():
 
         usetuple = self.base_deal.code_bringout(search_peitain)
         if usetuple:
-            print(' %s : %s'%(usetuple[0].decode(),usetuple[1].decode()))
+            # print('密码归属 ：%s'%usetuple[0].decode())
+            print('%s : %s'%(usetuple[2].decode(),usetuple[1].decode()))
+            print('username : %s')
+            self.code_copy(usetuple[1].decode(), usetuple[2].decode())
+            # print('\n已复制密码')
+            # pyperclip.copy(usetuple[1].decode())
         else:
             print('无法查询到对应密码，请检查拼写后重试')
+    
+    def code_copy(self,passcode,username=None):
+        # 密码复制进剪贴板
+        if username:
+            pyperclip.copy(username)
+            continued = input('已复制用户名，按c继续复制密码')
+            print('iii')
+            if continued == 'c':
+                pyperclip.copy(passcode)
+                print('已复制密码，结束')
+            else:
+                pyperclip.copy(passcode)
+                print('已结束复制')
 
 if __name__ == "__main__":
     
@@ -92,7 +121,7 @@ if __name__ == "__main__":
         middle_link = input('请输入密码+指令')
 
         middle_object = InputManage(str(middle_link))
-        pass_code = middle_object.DealInput()
+        middle_object.DealInput()
         # #判断，执行成功则输出
         # if pass_code !=0:
         #     print(pass_code)

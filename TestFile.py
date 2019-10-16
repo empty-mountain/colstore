@@ -3,11 +3,7 @@
 import time
 import string
 import random
+import os
 
-dicts = {
-    0: list(string.ascii_letters),
-    1: list(string.printable[:-6]),
-}
-
-
-print(dicts[1])
+def xxx():
+    print('here is it')
